@@ -6,8 +6,8 @@ import {
   Text,
 } from 'react-native';
 
-import Increment from '../Components/Increment';
-import Decrement from '../Components/Decrement';
+import GenericButton from '../Components/GenericButton';
+
 
 class Counter extends Component {
   constructor(props) {
@@ -16,6 +16,16 @@ class Counter extends Component {
     this.state = {
       count: 0
     };
+
+    this.incrementHandler = this.incrementHandler.bind(this);
+
+  }
+  decrementHandler() {
+    this.setState({count: this.state.count - 1});
+  }
+
+  incrementHandler() {
+    this.setState({count: this.state.count + 1});
   }
 
   render() {
@@ -26,9 +36,9 @@ class Counter extends Component {
           <Text>Counting people since 2016</Text>
         </View>
         <View style={styles.counter}>
-          <Increment />
-          <Text>{this.state.count}</Text>
-          <Decrement />
+          <GenericButton label='+' onPress={this.incrementHandler} />
+          <Text style={styles.text}>{this.state.count}</Text>
+          <GenericButton {...{label:'-', onPress: () => this.decrementHandler()}} />
         </View>
       </View>
     );
